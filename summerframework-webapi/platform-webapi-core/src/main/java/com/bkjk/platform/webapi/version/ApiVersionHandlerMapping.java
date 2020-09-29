@@ -22,6 +22,12 @@ public class ApiVersionHandlerMapping extends RequestMappingHandlerMapping {
         return AnnotatedElementUtils.hasAnnotation(beanType, Controller.class);
     }
 
+    /**
+     * 注册controller的请求处理handler
+     * @param handler
+     * @param method
+     * @param mapping
+     */
     @Override
     protected void registerHandlerMethod(Object handler, Method method, RequestMappingInfo mapping) {
         Class<?> controllerClass = method.getDeclaringClass();
