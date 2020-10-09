@@ -97,4 +97,10 @@ public class Tests {
         webTestClient.get().uri("/v3/ver/hello/zhuye").exchange().expectStatus().isOk().expectBody()
             .json("{'data':'hello3zhuye'}");
     }
+
+    @Test
+    public void testVersionApiController1() throws Exception {
+        webTestClient.get().uri("/v4/ver/hello").exchange().expectStatus().isOk().expectBody()
+                .json("{'data':'hello3'}");
+    }
 }
