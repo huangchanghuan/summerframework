@@ -23,7 +23,7 @@ public class ApiVersionHandlerMapping extends RequestMappingHandlerMapping {
     }
 
     /**
-     * 注册controller的请求处理handler
+     * 注册controller的请求处理handler，PatternsRequestCondition联合版本路径url
      * @param handler
      * @param method
      * @param mapping
