@@ -23,11 +23,11 @@ public class Tests {
         webTestClient.get().uri("/exception/item/0").exchange().expectStatus().isOk().expectBody()
             .json("{'code':'500','message':'不合法的商品ID'}");
         webTestClient.post().uri("/exception/item").syncBody(new MyItem()).exchange().expectStatus().isOk().expectBody()
-            .json("{'code':'422','error':'Unprocessable Entity'}");
+            .json("{'code':'422'}");
         webTestClient.post().uri("/exception/item").syncBody(new MyItem("a", 1)).exchange().expectStatus().isOk()
-            .expectBody().json("{'code':'422','error':'Unprocessable Entity'}");
+            .expectBody().json("{'code':'422'}");
         webTestClient.post().uri("/exception/item").syncBody(new MyItem("a", 10)).exchange().expectStatus().isOk()
-            .expectBody().json("{'code':'422','error':'Unprocessable Entity'}");
+            .expectBody().json("{'code':'422'}");
         webTestClient.post().uri("/exception/item").syncBody(new MyItem("aa", 10)).exchange().expectStatus().isOk()
             .expectBody().json("{'code':'200'}");
     }
@@ -100,7 +100,7 @@ public class Tests {
 
     @Test
     public void testVersionApiController1() throws Exception {
-        webTestClient.get().uri("/v4/ver/hello").exchange().expectStatus().isOk().expectBody()
-                .json("{'data':'hello3'}");
+        webTestClient.get().uri("/exception/item/1").exchange().expectStatus().isOk().expectBody()
+                .json("{'code':'200','data':{'name':'item1','price':10}}");
     }
 }

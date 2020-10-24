@@ -1,5 +1,7 @@
 package com.bkjk.platform.webapi.test;
 
+import com.bkjk.platform.webapi.ApiController;
+import com.bkjk.platform.webapi.RemoteService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +12,7 @@ import com.bkjk.platform.webapi.version.ApiVersion;
 
 import io.swagger.annotations.ApiOperation;
 
+@ApiController
 @ApiVersion("")
 @RequestMapping("exception")
 public class ExceptionController {
