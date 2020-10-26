@@ -30,6 +30,9 @@ import com.bkjk.platform.webapi.version.ApiVersionHandlerMapping;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 
+/**
+ * starter的启动类配置
+ */
 @Configuration
 @ComponentScan(value = "com.bkjk.platform.webapi",
     excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = "com.bkjk.platform.webapi.test.*"))

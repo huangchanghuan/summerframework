@@ -10,6 +10,11 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 import java.lang.reflect.Method;
 
+/**
+ * 扩展hanlderMapping
+ * 1.有@Controller的类
+ * 2.扩展registerHanlderMathod，在父类register之前，扩展有@Apicontroller标识的类
+ */
 public class ApiVersionHandlerMapping extends RequestMappingHandlerMapping {
 
     /**

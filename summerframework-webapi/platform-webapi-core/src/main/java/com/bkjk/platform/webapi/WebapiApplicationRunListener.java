@@ -35,6 +35,10 @@ public class WebapiApplicationRunListener implements SpringApplicationRunListene
 
     }
 
+    /**
+     * 设置是否开启swagger
+     * @param environment
+     */
     @Override
     public void environmentPrepared(ConfigurableEnvironment environment) {
         String profiles = environment.getProperty("spring.profiles.active");
