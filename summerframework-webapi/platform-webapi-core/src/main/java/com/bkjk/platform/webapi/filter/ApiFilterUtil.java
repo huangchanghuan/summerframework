@@ -10,7 +10,13 @@ import java.util.stream.Collectors;
 import org.springframework.context.ApplicationContext;
 
 public class ApiFilterUtil {
-
+    /**
+     * 获取方法对象method的@ApiFilter标识，和方法对象method的类上面的@ApiFilter
+     * @param applicationContext
+     * @param method
+     * @param reversed
+     * @return
+     */
     public static List<AbstractApiFilter> getFilters(ApplicationContext applicationContext, Method method,
         boolean reversed) {
 

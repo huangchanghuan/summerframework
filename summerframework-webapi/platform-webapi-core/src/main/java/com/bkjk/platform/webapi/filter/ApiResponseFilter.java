@@ -10,8 +10,9 @@ import java.util.function.BiConsumer;
 import static com.bkjk.platform.webapi.version.Constant.*;
 
 /**
+ *
  * @Program: summerframework2
- * @Description: 无论返回的结果是否成功，都会走这个filter
+ * @Description: 无论返回的结果是否成功，都会走这个filter（生效条件，使用@ApiController并且返回对象是ApiResultWrapper）
  * @Author: shaoze.wang
  * @Create: 2019/3/8 10:06
  **/
@@ -19,6 +20,10 @@ public interface ApiResponseFilter<T extends ApiResultWrapper> {
 
     T filter(T apiResult, BiConsumer<String,String> responseHeaderSetter);
 
+    /**
+     *
+     * @param <T>
+     */
     class Default<T extends ApiResultWrapper> implements ApiResponseFilter<T>{
 
         @Override
@@ -33,6 +38,7 @@ public interface ApiResponseFilter<T extends ApiResultWrapper> {
                 responseHeaderSetter.accept(X_PLATFORM_ERROR,TRUE_STRING);
                 // 如果请求有异常，且用户自定义了返回格式，那么框架将无法从body里解析异常信息，所以
                 // 把返回值（不包括data）按summer2的格式放到header里。这样框架才能在全链路上正确处理异常
+                //todo 什么情况下生效
                 if(!Constant.VERSION_SUMMER2.equals(apiResult.getSchemaVersion())){
                     responseHeaderSetter.accept(X_PLATFORM_SCHEMA_BODY, ApiResultUtil.formatAsJSONWithoutData(apiResult));
                 }
