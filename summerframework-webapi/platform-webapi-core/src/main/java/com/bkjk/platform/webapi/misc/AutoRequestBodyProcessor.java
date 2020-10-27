@@ -37,10 +37,16 @@ public class AutoRequestBodyProcessor extends RequestResponseBodyMethodProcessor
         return (requestBody != null && requestBody.required() && !parameter.isOptional());
     }
 
+    /**
+     * 使用ApiController默认实现含有@requestBody功能，不用每次都标识参数，方便使用
+     * @param parameter
+     * @return
+     */
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         if (AnnotatedElementUtils.hasAnnotation(parameter.getContainingClass(), ApiController.class)){
             ApiController ann = AnnotationUtils.findAnnotation(parameter.getContainingClass(), ApiController.class);
+            //如果是一个标准 restful接口 ，即 HttpMethod 符合规范且 Controller 下方法参数是在 body 中以JSON格式传递，那么设置为true
             if(ann.requestBody()&&!hasSpringAnnotation(parameter)){
                 return true;
             }
@@ -57,6 +63,12 @@ public class AutoRequestBodyProcessor extends RequestResponseBodyMethodProcessor
         return false;
     }
 
+    /**
+     * 默认就是通过实体注解进行校验，不用每个方法都要配置，方便
+     * todo 但是同一个实体，多个方法同时使用，不能使用原来的group分组校验？
+     * @param binder
+     * @param parameter
+     */
     @Override
     protected void validateIfApplicable(WebDataBinder binder, MethodParameter parameter) {
         if (AnnotatedElementUtils.hasAnnotation(parameter.getContainingClass(), ApiController.class)) {
