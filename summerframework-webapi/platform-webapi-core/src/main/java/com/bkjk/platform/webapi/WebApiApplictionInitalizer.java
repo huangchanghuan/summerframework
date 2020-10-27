@@ -14,7 +14,10 @@ import com.fasterxml.classmate.TypeResolver;
 import springfox.documentation.spring.web.readers.operation.HandlerMethodResolver;
 
 public class WebApiApplictionInitalizer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
-
+    /**
+     * 对swagger spring fox 的HandlerMethodResolver进行增强，HandlerMethodResolverWrapper
+     * @param applicationContext
+     */
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {
         applicationContext.getBeanFactory().addBeanPostProcessor(new InstantiationAwareBeanPostProcessorAdapter() {
