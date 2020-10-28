@@ -303,36 +303,36 @@ public class JobCenterAutoConfiguration {
     @PostConstruct
     public void init() {
         this.initDefaultParm();
-        ScheduledExecutorService scheduleReport = Executors.newScheduledThreadPool(1, new NamedThreadFactory());
-        scheduleReport.scheduleAtFixedRate(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    XxlJobExecutor xxlJobExecutor = applicationContext.getBean(XxlJobExecutor.class);
-                    String adminAddresses = discoveryAdminAddress();
-                    if (StringUtils.isEmpty(adminAddresses)) {
-                        return;
-                    }
-                    if (adminAddresses.equals(xxlJobExecutor.getAdminAddresses())) {
-                        LOGGER.info("AdminAddresses has no changes.");
-                        return;
-                    }
-                    if (xxlJobExecutor.getAdminAddresses() == null) {
-                        LOGGER.info("Old adminAddresses is NULL");
-                    } else {
-                        LOGGER.info("Remove old node {}", xxlJobExecutor.getAdminAddresses());
-                        XxlJobExecutor.getAdminBizList().clear();
-                    }
-
-                    LOGGER.info("Find all adminAddresses:" + adminAddresses + " from eureka");
-                    xxlJobExecutor.setAdminAddresses(adminAddresses);
-                    xxlJobExecutor.reInitAdminBizList();
-                } catch (Throwable e) {
-                    LOGGER.warn(e.getMessage(), e);
-                }
-            }
-        }, 0, 30, TimeUnit.SECONDS);
+//        ScheduledExecutorService scheduleReport = Executors.newScheduledThreadPool(1, new NamedThreadFactory());
+//        scheduleReport.scheduleAtFixedRate(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                try {
+//                    XxlJobExecutor xxlJobExecutor = applicationContext.getBean(XxlJobExecutor.class);
+//                    String adminAddresses = discoveryAdminAddress();
+//                    if (StringUtils.isEmpty(adminAddresses)) {
+//                        return;
+//                    }
+//                    if (adminAddresses.equals(xxlJobExecutor.getAdminAddresses())) {
+//                        LOGGER.info("AdminAddresses has no changes.");
+//                        return;
+//                    }
+//                    if (xxlJobExecutor.getAdminAddresses() == null) {
+//                        LOGGER.info("Old adminAddresses is NULL");
+//                    } else {
+//                        LOGGER.info("Remove old node {}", xxlJobExecutor.getAdminAddresses());
+//                        XxlJobExecutor.getAdminBizList().clear();
+//                    }
+//
+//                    LOGGER.info("Find all adminAddresses:" + adminAddresses + " from eureka");
+//                    xxlJobExecutor.setAdminAddresses(adminAddresses);
+//                    xxlJobExecutor.reInitAdminBizList();
+//                } catch (Throwable e) {
+//                    LOGGER.warn(e.getMessage(), e);
+//                }
+//            }
+//        }, 0, 30, TimeUnit.SECONDS);
     }
 
     public void initDefaultParm() {
