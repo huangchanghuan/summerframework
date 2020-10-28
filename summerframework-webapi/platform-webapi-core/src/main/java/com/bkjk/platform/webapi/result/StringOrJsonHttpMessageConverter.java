@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 
 /**
+ * todo 补充转发converter知识
  * @Program: summerframework2
  * @Description: ApiResult改变了接口的返回值类型，需要对字符串类型单独做适配。否则字符串会被加上双引号
  * @Author: shaoze.wang
