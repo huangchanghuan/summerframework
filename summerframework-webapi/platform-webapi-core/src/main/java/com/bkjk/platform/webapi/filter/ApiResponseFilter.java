@@ -38,7 +38,7 @@ public interface ApiResponseFilter<T extends ApiResultWrapper> {
                 responseHeaderSetter.accept(X_PLATFORM_ERROR,TRUE_STRING);
                 // 如果请求有异常，且用户自定义了返回格式，那么框架将无法从body里解析异常信息，所以
                 // 把返回值（不包括data）按summer2的格式放到header里。这样框架才能在全链路上正确处理异常
-                //todo 什么情况下生效
+                //什么情况下生效 1.用户自定义返回格式；2.请求异常
                 if(!Constant.VERSION_SUMMER2.equals(apiResult.getSchemaVersion())){
                     responseHeaderSetter.accept(X_PLATFORM_SCHEMA_BODY, ApiResultUtil.formatAsJSONWithoutData(apiResult));
                 }

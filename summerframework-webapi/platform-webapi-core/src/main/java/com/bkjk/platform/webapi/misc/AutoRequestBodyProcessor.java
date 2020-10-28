@@ -65,7 +65,7 @@ public class AutoRequestBodyProcessor extends RequestResponseBodyMethodProcessor
 
     /**
      * 默认就是通过实体注解进行校验，不用每个方法都要配置，方便
-     * todo 但是同一个实体，多个方法同时使用，不能使用原来的group分组校验？
+     * 但是同一个实体，多个方法同时使用，不能使用原来的group分组校验（放弃group，选择每个请求一个新实体，因为每个接口都是最小原则，各不相同）
      * @param binder
      * @param parameter
      */
