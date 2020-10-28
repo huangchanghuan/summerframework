@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * todo 拦截器，过滤器，aop，advice各个增强的执行顺序
+ */
 @Slf4j
 public abstract class AbstractApiFilter {
 
