@@ -121,8 +121,9 @@ public class InetUtils implements Closeable {
     }
 
     public static void main(String[] args) {
-        String localIp = InetUtils.getVpnHostInfo().getHostAddress();
-        System.out.println(localIp);
+//        String localIp = InetUtils.getVpnHostInfo().getHostAddress();
+
+        System.out.println(InetUtils.getFirstNonLoopbackHostInfo().getIpAddress());
     }
 
     private final ExecutorService executorService;
