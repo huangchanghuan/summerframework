@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
- *
+ * 对响应进行增强
+ * 1.根据是否有NoApiResult，决定是否封装响应体
+ * 2.apiResponseFilter进行响应头处理
+ * 3.todo 考虑配置签名功能RequestBodyAdvice？
  */
 @ControllerAdvice(annotations = ApiController.class)
 public class ApiResultAdvice implements ResponseBodyAdvice {

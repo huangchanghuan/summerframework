@@ -66,6 +66,11 @@ public class WebapiApplicationRunListener implements SpringApplicationRunListene
     public void contextLoaded(ConfigurableApplicationContext context) {
     }
 
+    /**
+     * 用AutoRequestBodyProcessor替换returnValueHandlers中的RequestResponseBodyMethodProcessor
+     * 实现自定义的类型转换
+     * @param context
+     */
     @Override
     public void started(ConfigurableApplicationContext context) {
         RequestMappingHandlerAdapter requestMappingHandlerAdapter = null;
@@ -76,26 +81,32 @@ public class WebapiApplicationRunListener implements SpringApplicationRunListene
         }
         if (!Objects.isNull(requestMappingHandlerAdapter)) {
             try {
+                //获取所有HandlerMethodReturnValueHandler
                 List<HandlerMethodReturnValueHandler> returnValueHandlers =
                     findHandlerMethodReturnValueHandlers(requestMappingHandlerAdapter);
+                //获取其中的RequestResponseBodyMethodProcessor
                 RequestResponseBodyMethodProcessor requestResponseBodyMethodProcessor =
                     findRequestResponseBodyMethodProcessor(returnValueHandlers);
+
                 if (!Objects.isNull(requestResponseBodyMethodProcessor)) {
                     Field messageConvertersField =
                         ReflectionUtils.findField(RequestMappingHandlerAdapter.class, "messageConverters");
                     messageConvertersField.setAccessible(true);
                     List<HttpMessageConverter<?>> messageConverters = (List<HttpMessageConverter<?>>)ReflectionUtils
                         .getField(messageConvertersField, requestMappingHandlerAdapter);
+
                     Field contentNegotiationManagerField =
                         ReflectionUtils.findField(RequestMappingHandlerAdapter.class, "contentNegotiationManager");
                     contentNegotiationManagerField.setAccessible(true);
                     ContentNegotiationManager contentNegotiationManager = (ContentNegotiationManager)ReflectionUtils
                         .getField(contentNegotiationManagerField, requestMappingHandlerAdapter);
+
                     Field requestResponseBodyAdviceField =
                         ReflectionUtils.findField(RequestMappingHandlerAdapter.class, "requestResponseBodyAdvice");
                     requestResponseBodyAdviceField.setAccessible(true);
                     List<Object> requestResponseBodyAdvice = (List<Object>)ReflectionUtils
                         .getField(requestResponseBodyAdviceField, requestMappingHandlerAdapter);
+
                     int index = returnValueHandlers.indexOf(requestResponseBodyMethodProcessor);
                     returnValueHandlers.remove(requestResponseBodyMethodProcessor);
                     returnValueHandlers.add(index, new AutoRequestBodyProcessor(messageConverters,
@@ -113,26 +124,34 @@ public class WebapiApplicationRunListener implements SpringApplicationRunListene
     private List<HandlerMethodReturnValueHandler>
         findHandlerMethodReturnValueHandlers(RequestMappingHandlerAdapter requestMappingHandlerAdapter)
             throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+
         Field returnValueHandlerCompositeField =
             ReflectionUtils.findField(RequestMappingHandlerAdapter.class, "returnValueHandlers");
+
         returnValueHandlerCompositeField.setAccessible(true);
         Field modifiersField = Field.class.getDeclaredField("modifiers");
         modifiersField.setAccessible(true);
         modifiersField.setInt(returnValueHandlerCompositeField,
             returnValueHandlerCompositeField.getModifiers() & ~Modifier.FINAL);
+
         HandlerMethodReturnValueHandlerComposite returnValueHandlerComposite =
             (HandlerMethodReturnValueHandlerComposite)ReflectionUtils.getField(returnValueHandlerCompositeField,
                 requestMappingHandlerAdapter);
+
         Field returnValueHandlersField =
             ReflectionUtils.findField(HandlerMethodReturnValueHandlerComposite.class, "returnValueHandlers");
+
+
         returnValueHandlersField.setAccessible(true);
         Field returnValueHandlerModifiersField = Field.class.getDeclaredField("modifiers");
         returnValueHandlerModifiersField.setAccessible(true);
         returnValueHandlerModifiersField.setInt(returnValueHandlersField,
             returnValueHandlersField.getModifiers() & ~Modifier.FINAL);
+
         List<HandlerMethodReturnValueHandler> returnValueHandlers =
             (List<HandlerMethodReturnValueHandler>)ReflectionUtils.getField(returnValueHandlersField,
                 returnValueHandlerComposite);
+
         return returnValueHandlers;
 
     }

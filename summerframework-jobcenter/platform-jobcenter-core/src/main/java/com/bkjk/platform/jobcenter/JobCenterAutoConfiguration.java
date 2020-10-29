@@ -258,6 +258,10 @@ public class JobCenterAutoConfiguration {
         }
     }
 
+    /**
+     * 获取本服务ip地址
+     * @return
+     */
     @SuppressWarnings("deprecation")
     private String discoveryLocalIp() {
         if (!StringUtils.isEmpty(jobCenterProperties.getLocalIp())) {

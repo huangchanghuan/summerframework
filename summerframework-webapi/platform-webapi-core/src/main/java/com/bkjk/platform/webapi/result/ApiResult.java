@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 @Builder
-class ApiResult<T> implements ApiResultWrapper<T> {
+public class ApiResult<T> implements ApiResultWrapper<T> {
     boolean success;
     String code;
     String error;
