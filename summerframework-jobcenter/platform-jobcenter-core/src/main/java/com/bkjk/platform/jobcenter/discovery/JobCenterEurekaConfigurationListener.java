@@ -28,6 +28,7 @@ public class JobCenterEurekaConfigurationListener implements SpringApplicationRu
 
     @Override
     public void environmentPrepared(ConfigurableEnvironment environment) {
+
         if (!environment.containsProperty(defaultZoneKey)) {
             Properties props = new Properties();
             props.put(defaultZoneKey, defaultZone);

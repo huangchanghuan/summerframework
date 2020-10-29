@@ -2,6 +2,7 @@ package com.bkjk.platform.jobcenter;
 
 import com.bkjk.platform.jobcenter.discovery.util.InetUtils;
 import com.xxl.job.core.executor.XxlJobExecutor;
+import com.xxl.job.core.executor.impl.XxlJobSpringExecutor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -371,7 +372,7 @@ public class JobCenterAutoConfiguration {
         }
     }
 
-    @Bean(initMethod = "start", destroyMethod = "destroy")
+    @Bean
     public XxlJobExecutor xxlJobExecutor() {
         LOGGER.info(">>>>>>>>>>> Jobcenter config init.");
         String adminAddresses = this.discoveryAdminAddress();
@@ -380,16 +381,15 @@ public class JobCenterAutoConfiguration {
         String accessToken = jobCenterProperties.getAccessToken();
         String callBackPath =
             jobCenterProperties.getLogPath() != null ? jobCenterProperties.getLogPath() : this.getCallBackLogPath();
-        XxlJobExecutor xxlJobExecutor = new XxlJobExecutor();
-        xxlJobExecutor.setAdminAddresses(adminAddresses);
-        xxlJobExecutor.setAppName(appName);
-        xxlJobExecutor.setIp(localIp);
-        xxlJobExecutor.setPort(port);
-        xxlJobExecutor.setAccessToken(accessToken);
-        xxlJobExecutor.setLogPath(callBackPath);
-        xxlJobExecutor.setLogRetentionDays(-1);
-        xxlJobExecutor.setApplicationContext(applicationContext);
-        return xxlJobExecutor;
+        XxlJobSpringExecutor xxlJobSpringExecutor = new XxlJobSpringExecutor();
+        xxlJobSpringExecutor.setAdminAddresses(adminAddresses);
+        xxlJobSpringExecutor.setAppname(appName);
+        xxlJobSpringExecutor.setIp(localIp);
+        xxlJobSpringExecutor.setPort(port);
+        xxlJobSpringExecutor.setAccessToken(accessToken);
+        xxlJobSpringExecutor.setLogPath(callBackPath);
+        xxlJobSpringExecutor.setLogRetentionDays(-1);
+        return xxlJobSpringExecutor;
     }
 
 }
