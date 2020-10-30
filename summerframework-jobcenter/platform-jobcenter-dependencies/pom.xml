@@ -8,8 +8,8 @@
 	<packaging>pom</packaging>
 	<name>platform-jobcenter-dependencies</name>
 	<parent>
-		<artifactId>summerframework-dependencies-parent</artifactId>
 		<groupId>com.bkjk.platform.summerframework</groupId>
+		<artifactId>summerframework-dependencies-parent</artifactId>
 		<version>2.0.0.RELEASE</version>
 	</parent>
 	<properties>
