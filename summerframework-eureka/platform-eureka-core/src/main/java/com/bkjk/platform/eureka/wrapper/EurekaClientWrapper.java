@@ -43,6 +43,11 @@ public class EurekaClientWrapper extends CloudEurekaClient {
         this.registerEventListener(new EurekaClientEventListener(publisher));
     }
 
+    /**
+     * 过滤得到服务消费的服务对象，过滤：不符合版本条件的或者本地已经缓存的
+     * @param instanceList
+     * @return
+     */
     private List<InstanceInfo> filterInstance(List<InstanceInfo> instanceList) {
         List<InstanceInfo> filteredInsantce = Lists.newArrayList();
         List<InstanceInfo> toDeleteInstance = Lists.newArrayList();
@@ -50,6 +55,7 @@ public class EurekaClientWrapper extends CloudEurekaClient {
             final String serviceId = insaceInfo.getVIPAddress();
             final String instanceIpAddr = insaceInfo.getIPAddr();
             final Map<String, String> instanceMeta = insaceInfo.getMetadata();
+            //这里能动态更新消费者消费的服务版本
             String reference = environment.getProperty(Constants.CONSUMER_INSTANCE_REFERENCE);
             if (this.reference != null && reference != null) {
                 if (!this.reference.equals(reference)) {
@@ -73,6 +79,7 @@ public class EurekaClientWrapper extends CloudEurekaClient {
             } else {
                 filteredInsantce.add(insaceInfo);
             }
+            //eurekaRuleCache有，则加入删除列表
             String ipAddress = eurekaRuleCache.get(serviceId);
             if (StringUtils.isNotEmpty(ipAddress)) {
                 List<String> ipAddressList = Arrays.asList(StringUtils.split(ipAddress, ","));
@@ -101,7 +108,7 @@ public class EurekaClientWrapper extends CloudEurekaClient {
         }
         return null;
     }
-
+    //todo eureka client这几个方法有什么用
     @Override
     public List<InstanceInfo> getInstancesByVipAddress(String vipAddress, boolean secure) {
         List<InstanceInfo> instanceInfos = super.getInstancesByVipAddress(vipAddress, secure);

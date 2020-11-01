@@ -11,6 +11,9 @@ import com.bkjk.platform.eureka.log.Log4jLevelSetter;
 import com.bkjk.platform.eureka.log.LogLevelInitializer;
 import com.bkjk.platform.eureka.log.LogbackLevelSetter;
 
+/**
+ * 修改系统日志初始化配置
+ */
 @Configuration
 @ConditionalOnProperty(value = "com.bkjk.platform.restclient.enabled", matchIfMissing = true)
 public class EurekatAutoConfiguration {

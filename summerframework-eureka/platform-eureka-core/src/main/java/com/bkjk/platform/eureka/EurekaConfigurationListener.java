@@ -17,6 +17,9 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.PropertiesPropertySource;
 
+/**
+ * 修改environment配置文件参数
+ */
 public class EurekaConfigurationListener implements SpringApplicationRunListener {
     private static final String PREFER_IP_ADDRESS = "eureka.instance.prefer-ip-address";
     private static final String PREFER_INSTANCE_ID_ADDRESS = "eureka.instance.instance-id";
@@ -47,6 +50,10 @@ public class EurekaConfigurationListener implements SpringApplicationRunListener
 
     }
 
+    /**
+     * 设置eureka client一些危险的参数
+     * @param environment
+     */
     @Override
     public void environmentPrepared(ConfigurableEnvironment environment) {
         Properties props = new Properties();
@@ -59,7 +66,9 @@ public class EurekaConfigurationListener implements SpringApplicationRunListener
 
         defaultProperties.put("ribbon.MaxAutoRetries", 0);
         defaultProperties.put("ribbon.MaxAutoRetriesNextServer", 0);
+        //使用actuator的/health进行健康检查，可以自定义client健康检查，比如redis连接，数据库，外部依赖是否正常
         defaultProperties.put("eureka.client.healthcheck.enabled", true);
+        //默认30秒更新eureka server里面的instance注册信息，改成10秒更新一次
         defaultProperties.put("eureka.client.instanceInfoReplicationIntervalSeconds", 10);
         Properties lastDefaultProps = new Properties();
         defaultProperties.forEach((k, v) -> {

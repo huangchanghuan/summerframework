@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.annotation.PostConstruct;
 import java.util.List;
 
+/**
+ * 选择某些logger，设置level
+ * 这里设置DiscoveryClient和InfluxMeterRegistry的level分别为error和off（没开启debug模式时候），
+ */
 public class LogLevelInitializer {
     private static Logger logger = LoggerFactory.getLogger(LogLevelInitializer.class);
     @Autowired

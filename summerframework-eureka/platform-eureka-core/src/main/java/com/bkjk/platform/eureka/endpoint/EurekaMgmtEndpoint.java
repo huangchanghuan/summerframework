@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bkjk.platform.eureka.EurekaRuleCache;
-
+//todo jmx是怎么支持的
 @ManagedResource(description = "Can be used to manager service discovery")
 @SuppressWarnings("unchecked")
 
@@ -157,7 +157,7 @@ public class EurekaMgmtEndpoint implements ApplicationContextAware, EnvironmentA
     public void setRegistration(Registration registration) {
         this.registration = registration;
     }
-
+    //todo 这个的作用
     @RequestMapping(path = "instance-status", method = RequestMethod.POST)
     @ResponseBody
     @ManagedOperation

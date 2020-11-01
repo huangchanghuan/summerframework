@@ -7,6 +7,9 @@ import com.netflix.discovery.EurekaEvent;
 import com.netflix.discovery.EurekaEventListener;
 import com.netflix.discovery.StatusChangeEvent;
 
+/**
+ * todo 这里为什么发布自定义事件，用于？
+ */
 public class EurekaClientEventListener implements EurekaEventListener {
     private ApplicationEventPublisher publisher;
 

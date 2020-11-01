@@ -18,6 +18,9 @@ import org.springframework.util.ReflectionUtils;
 import com.bkjk.platform.eureka.wrapper.EurekaClientWrapper;
 import com.bkjk.platform.eureka.wrapper.EurekaServiceRegistryWrapper;
 
+/**
+ * addBeanPostProcessor 修改容器中实例初始化对象
+ */
 public class EurekaApplicationContextInitializer
     implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
@@ -36,14 +39,17 @@ public class EurekaApplicationContextInitializer
                         ReflectionUtils.makeAccessible(filedPublisher);
                         ApplicationEventPublisher publisher =
                             (ApplicationEventPublisher)ReflectionUtils.getField(filedPublisher, eurekaClient);
+                        //eureka client增强，过滤不符合条件的服务提供者
                         return new EurekaClientWrapper(eurekaClient, environment, publisher);
                     } finally {
+                        //todo 这里的作用
                         Method method = ReflectionUtils.findMethod(CloudEurekaClient.class, "cancelScheduledTasks");
                         ReflectionUtils.makeAccessible(method);
                         ReflectionUtils.invokeMethod(method, eurekaClient);
                         eurekaClient = null;
                     }
                 } else if (bean instanceof EurekaServiceRegistry) {
+                    //设置上报METADATA
                     EurekaServiceRegistry eurekaServiceRegistry = (EurekaServiceRegistry)bean;
                     return new EurekaServiceRegistryWrapper(eurekaServiceRegistry, environment);
                 } else if (bean instanceof EurekaInstanceConfigBean) {

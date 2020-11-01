@@ -20,6 +20,9 @@ import com.netflix.loadbalancer.Server;
 import com.netflix.loadbalancer.ZoneAvoidanceRule;
 import com.netflix.niws.loadbalancer.DiscoveryEnabledServer;
 
+/**
+ * todo 负载均衡算法
+ */
 public class ZoneAvoidanceAndGrayAndLoadBasedRule extends ZoneAvoidanceRule {
 
     public static final Logger logger = LoggerFactory.getLogger(ZoneAvoidanceAndGrayAndLoadBasedRule.class);

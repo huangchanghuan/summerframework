@@ -75,6 +75,7 @@ public class EurekaServiceRegistryWrapper extends EurekaServiceRegistry {
         }
         registration.getMetadata().put(Constants.EUREKA_METADATA_MANAGEMENT_URL, getManagementUrl(registration));
         serviceRegistry.register(registration);
+        //todo 每次上报都会调用这个方法吗
         new ScheduleReportServerLoad(registration).start();
     }
 

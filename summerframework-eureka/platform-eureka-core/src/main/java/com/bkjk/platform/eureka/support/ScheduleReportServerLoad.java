@@ -18,6 +18,9 @@ import com.bkjk.platform.common.ServerLoadStatus;
 import com.bkjk.platform.eureka.util.JsonUtil;
 import com.netflix.appinfo.ApplicationInfoManager;
 
+/**
+ * 定时任务，获取系统cpu，内存等参数，设置instanceInfo，下次心跳主动上报eureka server
+ */
 public class ScheduleReportServerLoad {
 
     private static class NamedThreadFactory implements ThreadFactory {
