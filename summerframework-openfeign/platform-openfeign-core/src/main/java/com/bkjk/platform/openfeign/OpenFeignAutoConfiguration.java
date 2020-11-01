@@ -173,6 +173,9 @@ public class OpenFeignAutoConfiguration {
         return new OpenFeignSpringMvcContract(parameterProcessors, conversionService);
     }
 
+    /**
+     * 支持方法注解springmvc
+     */
     @PostConstruct
     public void modifyArgumentResolvers() {
         List<HandlerMethodArgumentResolver> list = new ArrayList<>(adapter.getArgumentResolvers());

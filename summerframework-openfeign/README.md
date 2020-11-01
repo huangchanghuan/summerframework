@@ -3,7 +3,7 @@
 
 ## 功能
 
-* spring MVC 不支持继承接口中方法参数上的注解（支持继承类、方法上的注解）,summerframework做了支持
+* spring MVC 不支持继承接口中**方法参数**上的注解（支持继承类、方法上的注解）,summerframework做了支持
 * 支持灰度发布(必须配合platform-starter-eureka使用，参考[灰度](https://confluence.bkjk-inc.com/pages/viewpage.action?pageId=19309838))
 
 # 使用方式

@@ -19,6 +19,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 
+/**
+ * todo get方法有实体？ 把body转化成get请求参数？
+ */
 public class OpenFeignRequestInterceptor implements RequestInterceptor {
 
     public static final Logger logger = LoggerFactory.getLogger(OpenFeignRequestInterceptor.class);

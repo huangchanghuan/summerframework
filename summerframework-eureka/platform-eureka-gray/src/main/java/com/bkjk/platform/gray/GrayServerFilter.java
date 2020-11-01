@@ -87,7 +87,7 @@ public class GrayServerFilter implements ServerFilter {
             return Lists.newArrayList(servers);
         }
         HttpServletRequest request = requestAttributes.getRequest();
-
+        //如果没有配置script，则都匹配
         List<Map<String, String>> matchList = grayScriptEngine.execute(servers, convertRequest(request));
         List<Server> allServers = new ArrayList<>();
         allServers.addAll(servers);
@@ -100,6 +100,13 @@ public class GrayServerFilter implements ServerFilter {
         return allServers;
     }
 
+    /**
+     * 根据match参数，返回graylist或者nograylist
+     * 所以消费要配置script决定是匹配gray还是nogray；
+     * @param servers
+     * @param matchMap
+     * @return
+     */
     private List<Server> match(List<Server> servers, Map<String, String> matchMap) {
         if (servers == null || servers.size() == 0) {
             logger.info("No server to match");
@@ -117,6 +124,7 @@ public class GrayServerFilter implements ServerFilter {
                 for (String key : nodeInfo.keySet()) {
 
                     if (!StringUtils.isEmpty(nodeInfo.get(key))) {
+                        //只要key存在，并且value值和server的值不同，就去除
                         if (!nodeInfo.get(key).equals(meteData.get(key))) {
                             logger.debug("Excluded server [{}]",
                                 ((DiscoveryEnabledServer)server).getInstanceInfo().getHealthCheckUrl());

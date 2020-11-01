@@ -38,6 +38,7 @@ public class OpenFeignApplictionInitalizer implements ApplicationContextInitiali
                 } else if (bean instanceof RequestParamMethodArgumentResolver) {
                     RequestParamMethodArgumentResolver requestParamMethodArgumentResolver =
                         (RequestParamMethodArgumentResolver)bean;
+                    //todo 这里是不是有问题
                     Field useDefaultResolution = ReflectionUtils.findField(RequestParamMethodArgumentResolver.class,
                         "useDefaultResolution", RequestParamMethodArgumentResolver.class);
                     ReflectionUtils.makeAccessible(useDefaultResolution);
@@ -53,6 +54,9 @@ public class OpenFeignApplictionInitalizer implements ApplicationContextInitiali
 
     }
 
+    /**
+     * todo 这里有什么用？看起来，只修改RequestParamNamedValueInfo，有啥效果？
+     */
     public static class RequestParamMethodArgumentResolverExt extends RequestParamMethodArgumentResolver {
 
         public RequestParamMethodArgumentResolverExt(boolean useDefaultResolution) {

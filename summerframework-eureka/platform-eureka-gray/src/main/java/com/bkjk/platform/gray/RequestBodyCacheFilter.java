@@ -14,6 +14,9 @@ import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 
+/**
+ * 设置可重复读request的body stream
+ */
 public class RequestBodyCacheFilter implements Filter {
 
     @Override

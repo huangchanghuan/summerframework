@@ -26,6 +26,12 @@ public class SummerErrorAdapterApiResultHandler implements ApiResultHandler {
         return null;
     }
 
+    /**
+     * 响应异常，并且不是同版本X_PLATFORM_SCHEMA_VERSION
+     * @param response
+     * @param type
+     * @return
+     */
     @Override
     public boolean support(Response response, Type type) {
         return response.headers().containsKey(Constant.X_PLATFORM_ERROR) && !Constant.VERSION_SUMMER2

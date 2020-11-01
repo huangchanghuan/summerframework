@@ -12,6 +12,9 @@ import com.bkjk.platform.webapi.result.ApiResultWrapper;
 
 import feign.Response;
 
+/**
+ * 实际响应的结果，并不是feign接口定义的实体，而是实体的自动封装，所以这里要自动解封装。。。
+ */
 public class SummerWrappedApiResultHandler implements ApiResultHandler {
 
     Class<? extends ApiResultWrapper> apiResultType;
