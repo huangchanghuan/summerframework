@@ -16,6 +16,10 @@ import org.springframework.amqp.rabbit.retry.MessageRecoverer;
 import com.bkjk.platform.rabbit.DeadLetterConstant;
 import com.bkjk.platform.rabbit.DeadLetterQueueCreator;
 
+/**
+ * todo 重试逻辑？
+ * 消费者抛出异常的时候，会到这里处理
+ */
 public class RepublishMessageRecovererExtend implements MessageRecoverer {
 
     public static final String X_EXCEPTION_STACKTRACE = "x-exception-stacktrace";
@@ -65,6 +69,11 @@ public class RepublishMessageRecovererExtend implements MessageRecoverer {
         return stringWriter.getBuffer().toString();
     }
 
+    /**
+     *
+     * @param message
+     * @param cause
+     */
     @Override
     public void recover(Message message, Throwable cause) {
         Map<String, Object> headers = message.getMessageProperties().getHeaders();

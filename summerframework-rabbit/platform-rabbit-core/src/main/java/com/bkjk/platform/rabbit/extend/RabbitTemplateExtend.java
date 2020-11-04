@@ -17,6 +17,11 @@ import com.bkjk.platform.rabbit.logger.PublishTraceLog;
 import com.google.common.collect.Maps;
 import com.rabbitmq.client.Channel;
 
+/**
+ * 增强
+ * 1.打印发送日志
+ * 2.延期消息
+ */
 public class RabbitTemplateExtend extends RabbitTemplate {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RabbitTemplateExtend.class);

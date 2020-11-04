@@ -32,7 +32,7 @@ import com.bkjk.platform.rabbit.extend.RepublishMessageRecovererExtend;
 
 /**
  * Configure {@link RabbitListenerContainerFactory} with sensible defaults.
- *
+ *  设置重试策略，自动加入延迟队列
  * @author Stephane Nicoll
  * @author Gary Russell
  * @since 1.3.3
@@ -52,7 +52,7 @@ public final class SimpleRabbitListenerContainerFactoryConfigurer {
     /**
      * Configure the specified rabbit listener container factory. The factory can be further tuned and default settings
      * can be overridden.
-     * 
+     *
      * @param factory the {@link SimpleRabbitListenerContainerFactory} instance to configure
      * @param connectionFactory the {@link ConnectionFactory} to use
      */
@@ -114,6 +114,7 @@ public final class SimpleRabbitListenerContainerFactoryConfigurer {
             builder.backOffOptions(retryConfig.getInitialInterval(), retryConfig.getMultiplier(),
                 retryConfig.getMaxInterval());
             MessageRecoverer recoverer;
+            //如果系统没有唯一的messageRecoverer，则添加自定义的重试消息队列
             if (this.messageConverter != null) {
                 recoverer = this.messageRecoverer;
             } else {

@@ -9,6 +9,9 @@ import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import com.bkjk.platform.rabbit.logger.ReceiveTraceLog;
 import com.rabbitmq.client.Channel;
 
+/**
+ * 打印消费日志追踪日志
+ */
 public class SimpleMessageListenerContainerExtend extends SimpleMessageListenerContainer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SimpleMessageListenerContainerExtend.class);
