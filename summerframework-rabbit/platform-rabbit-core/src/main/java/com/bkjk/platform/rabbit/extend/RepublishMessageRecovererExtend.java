@@ -37,7 +37,7 @@ public class RepublishMessageRecovererExtend implements MessageRecoverer {
     private final AmqpTemplate errorTemplate;
 
     private final DeadLetterQueueCreator deadLetterQueueCreator;
-
+    //todo 自定义messagerecover不应该和本地重试共用参数,需要修改
     private int recoverTimes = 3;
     private Long interval;
 
@@ -70,7 +70,11 @@ public class RepublishMessageRecovererExtend implements MessageRecoverer {
     }
 
     /**
-     *
+     *  Auto
+     * 1. 如果消息成功被消费（成功的意思是在消费的过程中没有抛出异常），则自动确认
+     * 2. 当抛出 AmqpRejectAndDontRequeueException 异常的时候，则消息会被拒绝，且 requeue = false（不重新入队列）
+     * 3. 当抛出 ImmediateAcknowledgeAmqpException 异常，则消费者会被确认
+     * 4. 其他的异常，则消息会被拒绝，且 requeue = true，此时会发生死循环，可以通过 setDefaultRequeueRejected（默认是true）去设置抛弃消息
      * @param message
      * @param cause
      */
@@ -101,6 +105,9 @@ public class RepublishMessageRecovererExtend implements MessageRecoverer {
         headers.put(X_REPUBLISH_TIMES, republishTimes);
         message.getMessageProperties().setRedelivered(true);
         String retryRoutingKey = this.createRetryQueueAndGetRetryRourtingKey(message);
+        //发送失败，还是会ack,导致消息丢失!! 不会抛出异常，比如没有exchange，queue，
+        //处理方案：发送之前，打印日志（可以写入数据库），人工介入补偿，属于代码问题了,防止丢失消息
+        //处理方案： [写入数据库][send][ack return异步确认]，更加智能
         this.errorTemplate.send(DeadLetterConstant.DEFAULT_DEADLETTEREXCHANGE_NAME, retryRoutingKey, message);
     }
 

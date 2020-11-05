@@ -91,7 +91,7 @@ public final class SimpleRabbitListenerContainerFactoryConfigurer {
         ListenerRetry retryConfig = config.getRetry();
         if (retryConfig.isEnabled()) {
             RetryInterceptorBuilder<?> builder =
-                (retryConfig.isStateless() ? RetryInterceptorBuilder.stateless() : RetryInterceptorBuilder.stateful()//
+                (retryConfig.isStateless() ? RetryInterceptorBuilder.stateless() : RetryInterceptorBuilder.stateful()
                     .messageKeyGenerator(new MessageKeyGenerator() {
 
                         @Override
@@ -102,7 +102,7 @@ public final class SimpleRabbitListenerContainerFactoryConfigurer {
                             else
                                 return messagId;
                         }
-                    })//
+                    })
                     .newMessageIdentifier(new NewMessageIdentifier() {
 
                         @Override
