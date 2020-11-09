@@ -24,6 +24,9 @@ import com.bkjk.platform.redis.data.DataRedisDistributedLock;
 import com.bkjk.platform.redis.redisson.RedissonClientProxyHandler;
 import com.bkjk.platform.redis.redisson.RedissonDistributedLock;
 
+/**
+ * 扩展分布式锁，或者自动配置redission
+ */
 @Configuration
 @EnableConfigurationProperties(RedisProperties.class)
 public class RedisAutoConfiguration {

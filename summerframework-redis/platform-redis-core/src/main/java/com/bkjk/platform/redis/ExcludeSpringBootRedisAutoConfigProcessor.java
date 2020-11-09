@@ -17,6 +17,11 @@ public class ExcludeSpringBootRedisAutoConfigProcessor implements EnvironmentPos
         return 0;
     }
 
+    /**
+     * 如果存在redisson，则不用默认RedisAutoConfiguration
+     * @param environment
+     * @param application
+     */
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
         boolean isPresent = isPresent("org.redisson.api.RedissonClient");
