@@ -11,13 +11,17 @@ platform-starter-redis是一个redis客户端的二次封装
 
 # 功能
 
-* 快速配置一个redis客户端，支持Jedis和Redisson（默认使用Jedis）
-* 支持使用CacheCloud方式来自动获取Redis实例地址
+* 快速配置一个redis客户端，支持Jedis和Redisson（默认使用Jedis）（现在默认的是Lettuce了）
 * 提供配置多个Redis实例(类似于多数据源)功能
-* 提供分布式锁功能
-* 提供二级缓存功能
+* 提供分布式锁功能     
+（redis提供的lua锁有问题，主要是重入锁，还有更新锁有问题，没有考虑锁释放次数，更新锁延迟队列有问题，要优化）
+（还是建议redisson锁,弄清楚redisson锁是怎么使用的）
+* 提供二级缓存功能 （这是spring cache的功能）
+* 集成了metrics （主要是操作redis的打点工作）
+
+
+* 支持使用CacheCloud方式来自动获取Redis实例地址
 * 客户端上报功能（限于CacheCloud)
-* 集成了metrics
 
 # 使用方式
    一般来说，在一个项目中只会有一种依赖方式，任何一种方式都提供以上功能。

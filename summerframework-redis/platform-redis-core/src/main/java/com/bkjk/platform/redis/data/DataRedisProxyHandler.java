@@ -13,6 +13,9 @@ import com.sohu.tv.cachecloud.client.basic.util.NetUtils;
 import com.sohu.tv.jedis.stat.data.UsefulDataCollector;
 import com.sohu.tv.jedis.stat.model.UsefulDataModel;
 
+/**
+ * 做监控统计
+ */
 public class DataRedisProxyHandler implements InvocationHandler {
 
     private static final String HASH_CODE = "hashCode";
