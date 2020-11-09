@@ -80,7 +80,8 @@ public class JavaConcurrentLockFactory implements LockFactory, LockMonitor {
     @Override
     @NonNull
     public Lock getLock(LockInstance lockInstance) {
-        WeakReferenceWithKey<Lock> lockRef = lockCache.computeIfAbsent(lockInstance.getName(), (key) -> new WeakReferenceWithKey<>(new ReentrantLock(lockInstance.isFair()),queue,key));
+        WeakReferenceWithKey<Lock> lockRef =
+                lockCache.computeIfAbsent(lockInstance.getName(), (key) -> new WeakReferenceWithKey<>(new ReentrantLock(lockInstance.isFair()),queue,key));
         Lock lock=lockRef.get();
         if(lock==null){
             ReentrantLock newLock = new ReentrantLock(lockInstance.isFair());

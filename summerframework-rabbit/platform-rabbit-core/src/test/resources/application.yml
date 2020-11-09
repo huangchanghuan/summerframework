@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: rabbit-test-app
+  rabbitmq:
+    host: 192.168.182.128
+    port: 5672
+    username: root
+    password: 7746595
+    virtualHost: /
+    listener:
+      simple:
+        retry:
+          enabled: true
+          max-attempts: 3
+          initialInterval: 100
+        prefetch: 1
+        concurrency: 1
+        max-concurrency: 1
+        default-requeue-rejected: true #true拒绝重回队列，false拒绝直接丢失
+    dynamic: true

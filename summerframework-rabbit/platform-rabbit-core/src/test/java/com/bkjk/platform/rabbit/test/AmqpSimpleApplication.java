@@ -1,8 +1,9 @@
 
 package com.bkjk.platform.rabbit.test;
 
+import com.bkjk.platform.rabbit.DeadLetterConstant;
 import com.bkjk.platform.rabbit.delay.Delay;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.annotation.*;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -64,7 +65,6 @@ public class AmqpSimpleApplication {
         @Scheduled(fixedDelay = 100L)
 //        @Delay(interval = 1000L, queue = "architect.queue")
         public void send() {
-
             rabbitTemplate.convertAndSend("architect.exchange", "architect.route", atomicInteger.getAndIncrement());
         }
     }
