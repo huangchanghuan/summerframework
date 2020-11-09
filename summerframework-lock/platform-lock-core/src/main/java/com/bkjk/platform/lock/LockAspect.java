@@ -73,6 +73,7 @@ public class LockAspect implements ApplicationContextAware {
         }
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
+        //todo 这里是
         if (method.getDeclaringClass().isInterface()) {
             try {
                 method = joinPoint.getTarget().getClass().getDeclaredMethod(signature.getName(),
@@ -121,6 +122,7 @@ public class LockAspect implements ApplicationContextAware {
         WithLock synthesizedWithLock = AnnotationUtils.synthesizeAnnotation(withLock, null);
         LockInstance lockInstance=initLockInfo(joinPoint, synthesizedWithLock);
         lockInfoThreadLocal.set(lockInstance);
+        //todo 原子引用
         AtomicReference<Object> returnValue = new AtomicReference<>();
         AtomicReference<Throwable> throwable = new AtomicReference<>();
         try {
