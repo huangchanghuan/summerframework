@@ -71,6 +71,12 @@ public class JavaConcurrentLockFactory implements LockFactory, LockMonitor {
         }
     }
 
+    /**
+     * 缓存名字锁
+     * todo 这里有并发问题
+     * @param lockInstance
+     * @return
+     */
     @Override
     @NonNull
     public Lock getLock(LockInstance lockInstance) {
