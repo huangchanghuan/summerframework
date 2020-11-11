@@ -72,6 +72,7 @@ public class MicrometerSpringApplicationRunListener implements SpringApplication
 
     @Override
     public void environmentPrepared(ConfigurableEnvironment environment) {
+        //todo 这行的作用？
         new TransactionManagerCustomizer().apply(environment);
         if (environment.getProperty(METRICS_INFLUX_ENABLED) == null) {
             logger.info("{} not set. Default enable", METRICS_INFLUX_ENABLED);

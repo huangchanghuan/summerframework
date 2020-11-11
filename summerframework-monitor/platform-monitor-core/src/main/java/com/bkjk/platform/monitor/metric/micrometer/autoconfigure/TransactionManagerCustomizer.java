@@ -13,6 +13,9 @@ import javassist.CtClass;
 import javassist.CtMethod;
 import javassist.NotFoundException;
 
+/**
+ * 利用字节码技术，对数据库事务进行打点监控，统计数据time metric
+ */
 public class TransactionManagerCustomizer {
     public static final Logger logger = LoggerFactory.getLogger(TransactionManagerCustomizer.class);
     private static final AtomicBoolean isDone = new AtomicBoolean(false);

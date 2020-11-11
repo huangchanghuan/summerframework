@@ -54,7 +54,9 @@ public class LogBackConfiguration extends LogConfiguration {
         if (loggerKafka != null) {
             loggerKafka.setLevel(ch.qos.logback.classic.Level.ERROR);
         }
+        //初始化kafka批量发送日志kafkaAppender
         createBizLogger();
+        //统一设置所有logger输出格式
         for (Logger logger : loggerList) {
             AppenderAttachable appenderAttachable = logger;
             setLayout(loggerContext,appenderAttachable.iteratorForAppenders());

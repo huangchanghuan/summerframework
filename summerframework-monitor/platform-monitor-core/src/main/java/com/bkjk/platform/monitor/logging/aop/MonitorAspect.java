@@ -5,6 +5,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+/**
+ * 监控日志脱敏
+ */
 public class MonitorAspect {
     protected Set<String> paramBlacklist = new HashSet<>(Arrays.asList("password", "passwd", "secret", "authorization",
         "api_key", "apikey", "access_token", "accesstoken"));

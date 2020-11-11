@@ -1,6 +1,24 @@
 # 说明
 
 关于监控的架构详情可以看这里[全链路监控](https://confluence.bkjk-inc.com/pages/viewpage.action?pageId=20712091)
+com.bkjk.platform.monitor.logging.LoggingAutoConfiguration,\
+com.bkjk.platform.monitor.metric.prometheus.PrometheusAutoConfiguration,\
+com.bkjk.platform.monitor.metric.micrometer.autoconfigure.MicrometerAutoConfiguration,\
+com.bkjk.platform.monitor.metric.micrometer.autoconfigure.JVMAutoConfiguration,\
+com.bkjk.platform.monitor.metric.micrometer.autoconfigure.FileSystemAutoConfiguration,\
+com.bkjk.platform.monitor.metric.micrometer.autoconfigure.ThreadPoolAutoConfiguration,\
+com.bkjk.platform.monitor.metric.micrometer.autoconfigure.DataSourceMetricAutoConfiguration,\
+com.bkjk.platform.monitor.metric.micrometer.autoconfigure.DatabaseStatusAutoConfiguration,\
+com.bkjk.platform.monitor.metric.micrometer.autoconfigure.JmsAutoConfiguration,\
+com.bkjk.platform.monitor.metric.micrometer.autoconfigure.RestTemplateAutoConfiguration,\
+com.bkjk.platform.monitor.metric.micrometer.autoconfigure.RedisAutoConfiguration,\
+com.bkjk.platform.monitor.metric.micrometer.autoconfigure.MicroserviceAutoConfiguration,\
+com.bkjk.platform.monitor.metric.micrometer.autoconfigure.RedisListenerAutoConfiguration,\
+com.bkjk.platform.monitor.metric.micrometer.autoconfigure.DataSourceAutoConfiguration
+
+
+LoggingAutoConfiguration: 对controller和@Monitor注解的方法进行方法级别日志：请求参数，消耗时间，响应参数，monitor方法时间和次数统计
+
 #### 对所有的依赖组件进行了Metrcis打点
 * CPU、内存、磁盘空间
 * JVM Memory、GC、thread、classes等

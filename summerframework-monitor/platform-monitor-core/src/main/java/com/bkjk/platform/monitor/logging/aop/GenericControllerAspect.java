@@ -46,6 +46,11 @@ public class GenericControllerAspect extends MonitorAspect implements Controller
     public void allPublicControllerMethodsPointcut() {
     }
 
+    @Override
+    @Pointcut("@annotation(com.bkjk.platform.monitor.logging.aop.Monitor) || @within(com.bkjk.platform.monitor.logging.aop.Monitor)")
+    public void methodOrClassMonitorEnabledPointcut() {
+    }
+
     private Object getScrubbedValue(String argName, Object argValue) {
         Object argValueToUse = argValue;
         if (enableDataScrubbing) {
@@ -132,6 +137,9 @@ public class GenericControllerAspect extends MonitorAspect implements Controller
                 String argClassName = argValues[i] == null ? "NULL" : argValues[i].getClass().getName();
                 serialize(argValues[i], argClassName, stringBuilder);
             } else {
+                /**
+                 * 对普通字段进行脱敏处理
+                 */
                 stringBuilder.append(getScrubbedValue(argNames[i], argValues[i]));
             }
             stringBuilder.append("]").append(i == (length - 1) ? "" : ", ");
@@ -194,10 +202,7 @@ public class GenericControllerAspect extends MonitorAspect implements Controller
         LOG.info(preMessage.toString());
     }
 
-    @Override
-    @Pointcut("@annotation(com.bkjk.platform.monitor.logging.aop.Monitor) || @within(com.bkjk.platform.monitor.logging.aop.Monitor)")
-    public void methodOrClassMonitorEnabledPointcut() {
-    }
+
 
     @Override
     @AfterThrowing(pointcut = "allPublicControllerMethodsPointcut() || methodOrClassMonitorEnabledPointcut()",

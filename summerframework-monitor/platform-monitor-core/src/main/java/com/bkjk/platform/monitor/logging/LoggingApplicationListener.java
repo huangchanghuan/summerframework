@@ -25,6 +25,11 @@ public class LoggingApplicationListener implements SpringApplicationRunListener 
     public void contextPrepared(ConfigurableApplicationContext context) {
     }
 
+    /**
+     * 1.统一日志格式
+     * 2.初始化kafka日志输出
+     * @param environment
+     */
     @Override
     public void environmentPrepared(ConfigurableEnvironment environment) {
         try {
@@ -38,6 +43,7 @@ public class LoggingApplicationListener implements SpringApplicationRunListener 
         } catch (Throwable t) {
             logger.error(t.getMessage(), t);
         }
+        //定义全局为处理的异常
         Thread.setDefaultUncaughtExceptionHandler(new GlobalUncaughtExceptionHandler());
     }
 
