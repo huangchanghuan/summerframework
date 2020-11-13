@@ -21,6 +21,8 @@ import io.micrometer.core.instrument.MeterRegistry;
 @AutoConfigureAfter(MicrometerAutoConfiguration.class)
 public class RestTemplateAutoConfiguration {
 
+    public static final String METRIC_NAME = "rest_template_timer";
+
     @Configuration
     @ConditionalOnClass({ClientHttpRequestInterceptor.class, RestTemplate.class})
     public static class WebConfig {
@@ -60,6 +62,5 @@ public class RestTemplateAutoConfiguration {
         }
     }
 
-    public static final String METRIC_NAME = "rest_template_timer";
 
 }

@@ -17,6 +17,11 @@ com.bkjk.platform.monitor.metric.micrometer.autoconfigure.DataSourceAutoConfigur
 LoggingAutoConfiguration: 对controller和@Monitor注解的方法进行方法级别日志：请求参数，消耗时间，响应参数，monitor方法时间和次数统计
 PrometheusAutoConfiguration : 主要是开启prometheus访问端口，但是目前框架自带，所以不用开启
 MicrometerAutoConfiguration ：
+
+
+RestTemplateAutoConfiguration: restTemplate的请求time监控
+RedisAutoConfiguration ： Jedis连接池监控
+
 #### 对所有的依赖组件进行了Metrcis打点
 * CPU、内存、磁盘空间
 * JVM Memory、GC、thread、classes等
