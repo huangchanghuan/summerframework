@@ -22,6 +22,8 @@ ThreadPoolAutoConfiguration ： spring的ThreadPoolTaskExecutor和ThreadPoolTask
 DataSourceMetricAutoConfiguration： 监控druid数据源；p6spy代理数据源打印sql日志和监控打点，慢执行日志等；
 DatabaseStatusAutoConfiguration: 打点各个数据源的Questions,Com_commit,Com_rollback,Table_locks_waited 等自定义参数（通过show global status like '%s 获取）
 JmsAutoConfiguration: kafka 和 rabbitmq的监控打点
+RestTemplateAutoConfiguration: restTemplate的请求time监控
+RedisAutoConfiguration ： Jedis连接池监控
 #### 对所有的依赖组件进行了Metrcis打点
 * CPU、内存、磁盘空间
 * JVM Memory、GC、thread、classes等
