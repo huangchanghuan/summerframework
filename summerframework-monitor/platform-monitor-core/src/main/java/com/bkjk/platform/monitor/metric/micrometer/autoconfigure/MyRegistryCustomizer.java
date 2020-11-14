@@ -27,12 +27,19 @@ import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.config.MeterFilter;
 import io.micrometer.core.instrument.distribution.DistributionStatisticConfig;
 
+/**
+ * 对全局registry进行定制，设置meterFilter
+ *  定时凌晨2点清除所有meter
+ */
 public class MyRegistryCustomizer implements MeterRegistryCustomizer {
 
     private static final String MONITOR_METRIC_TAGS_IGNORE_CHARACTER = "";
-
+    //todo 每天凌晨2点出发cleaner
     private static final String MONITOR_METRIC_CLEANER_TRIGGER_CRON = "0 0 2 * * ?";
 
+    /**
+     * 忽略配置的tag
+     */
     private static class TagIgnoreMeterFilter implements MeterFilter {
         private List<String> tagKeys = new ArrayList<>();
 
@@ -64,6 +71,9 @@ public class MyRegistryCustomizer implements MeterRegistryCustomizer {
         }
     }
 
+    /**
+     * 设置timer，long_task_timer,distribution_summary的percentiles
+     */
     private static class TimerMeterFilter implements MeterFilter {
         private static final String DEFAULT_PERCENTILES = "0.8, 0.9, 0.95, 0.99";
         double[] percentiles;

@@ -5,6 +5,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.CronTrigger;
 
@@ -14,9 +16,12 @@ import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * todo 为什么定时任务凌晨2点删除meter
+ */
 @Slf4j
 public class MeterMapCleanerTask {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(MeterMapCleanerTask.class);
     public static void main(String[] args) {
         SimpleMeterRegistry meterRegistry = new SimpleMeterRegistry();
         Metrics.globalRegistry.add(meterRegistry);
@@ -46,8 +51,12 @@ public class MeterMapCleanerTask {
         this.meterRegistry = meterRegistry;
     }
 
+    /**
+     * 清除meterRegistry中所有meter
+     */
     public void cleanMeterMap() {
-        log.info("Clean meterMap of {}", this.meterRegistry);
+
+        LOGGER.info("Clean meterMap of {}", this.meterRegistry);
         if (this.meterRegistry instanceof CompositeMeterRegistry) {
             CompositeMeterRegistry compositeMeterRegistry = (CompositeMeterRegistry)meterRegistry;
             this.meterRegistry.getMeters().forEach(this.meterRegistry::remove);
@@ -61,19 +70,19 @@ public class MeterMapCleanerTask {
 
     public void start(String trigger) {
         if (meterRegistry == null) {
-            log.error("meterRegistry SHOULD NOT BE NULL");
+            LOGGER.error("meterRegistry SHOULD NOT BE NULL");
             return;
         }
         synchronized (this) {
             if (threadPoolTaskScheduler != null) {
-                log.info("MeterMapCleanerTask was already scheduled by {}", threadPoolTaskScheduler);
+                LOGGER.info("MeterMapCleanerTask was already scheduled by {}", threadPoolTaskScheduler);
                 return;
             }
             threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
             threadPoolTaskScheduler.setDaemon(true);
             threadPoolTaskScheduler.setThreadNamePrefix("MeterMapCleanerTask");
             threadPoolTaskScheduler.initialize();
-            log.info("MeterMapCleanerTask will be scheduled by {}. trigger = {}", threadPoolTaskScheduler, trigger);
+            LOGGER.info("MeterMapCleanerTask will be scheduled by {}. trigger = {}", threadPoolTaskScheduler, trigger);
             threadPoolTaskScheduler.schedule(this::cleanMeterMap, new CronTrigger(trigger));
         }
     }

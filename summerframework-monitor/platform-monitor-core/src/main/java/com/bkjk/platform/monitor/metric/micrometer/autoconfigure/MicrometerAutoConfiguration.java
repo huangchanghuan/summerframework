@@ -20,6 +20,10 @@ import com.hazelcast.core.IMap;
 import io.micrometer.core.aop.TimedAspect;
 import io.micrometer.core.instrument.MeterRegistry;
 
+/**
+ * hazelcast的监控；healthMetrics，自定义全局对全局registry进行定制，设置meterFilter，定时凌晨2点清除所有meter；其他等等
+ *
+ */
 public class MicrometerAutoConfiguration {
 
     @Configuration
