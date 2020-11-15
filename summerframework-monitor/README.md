@@ -3,13 +3,6 @@
 关于监控的架构详情可以看这里[全链路监控](https://confluence.bkjk-inc.com/pages/viewpage.action?pageId=20712091)
 
 
-
-
-
-com.bkjk.platform.monitor.metric.micrometer.autoconfigure.RestTemplateAutoConfiguration,\
-com.bkjk.platform.monitor.metric.micrometer.autoconfigure.RedisAutoConfiguration,\
-com.bkjk.platform.monitor.metric.micrometer.autoconfigure.MicroserviceAutoConfiguration,\
-com.bkjk.platform.monitor.metric.micrometer.autoconfigure.RedisListenerAutoConfiguration,\
 com.bkjk.platform.monitor.metric.micrometer.autoconfigure.DataSourceAutoConfiguration
 
 LoggingAutoConfiguration: 对controller和@Monitor注解的方法进行方法级别日志：请求参数，消耗时间，响应参数，monitor方法时间和次数统计
@@ -24,6 +17,9 @@ DatabaseStatusAutoConfiguration: 打点各个数据源的Questions,Com_commit,Co
 JmsAutoConfiguration: kafka 和 rabbitmq的监控打点
 RestTemplateAutoConfiguration: restTemplate的请求time监控
 RedisAutoConfiguration ： Jedis连接池监控
+MicroserviceAutoConfiguration : openfeign 打点监控，请求响应time
+RedisListenerAutoConfiguration ： 记录redis执行命令请求的时间
+DataSourceAutoConfiguration ： HikariDataSource包装成p6DataSource
 #### 对所有的依赖组件进行了Metrcis打点
 * CPU、内存、磁盘空间
 * JVM Memory、GC、thread、classes等

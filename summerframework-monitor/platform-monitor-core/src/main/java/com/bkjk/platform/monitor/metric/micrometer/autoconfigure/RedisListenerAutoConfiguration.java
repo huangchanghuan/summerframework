@@ -11,7 +11,9 @@ import org.springframework.context.annotation.Bean;
 
 import com.bkjk.platform.monitor.metric.micrometer.binder.redis.MonitorRedisCommandListener;
 import com.bkjk.platform.redis.AbstractRedisMonitorListener;
-
+/**
+ * RedisCommandListener不存在
+ */
 @ConditionalOnClass(name = "com.bkjk.platform.redis.monitor.RedisCommandListener")
 public class RedisListenerAutoConfiguration {
     public static final Logger logger = LoggerFactory.getLogger("RedisListenerAutoConfiguration");
