@@ -70,6 +70,7 @@ public class ApolloSpringApplicationRunListener implements SpringApplicationRunL
                     "Config center must config app.id in " + DefaultApplicationProvider.APP_PROPERTIES_CLASSPATH);
             }
         } else {
+            //todo tomcat多个war会冲突？
             System.setProperty(APOLLO_APP_ID_KEY, apolloAppId);
         }
     }
