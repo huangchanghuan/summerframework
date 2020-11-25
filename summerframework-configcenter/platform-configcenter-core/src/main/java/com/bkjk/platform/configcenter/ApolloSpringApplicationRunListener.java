@@ -24,7 +24,7 @@ public class ApolloSpringApplicationRunListener implements SpringApplicationRunL
     private static final String APOLLO_BOOTSTRAP_ENABLE_KEY = "apollo.bootstrap.enabled";
     private static final String SPRINGBOOT_APPLICATION_NAME = "spring.application.name";
     private static final String SPRINGBOOT_PROFILES_ACTIVE = "spring.profiles.active";
-    private static final String CONFIGCENTER_INFRA_NAMESPACE = "BKJK.INFRA-MONITOR";
+    private static final String CONFIGCENTER_INFRA_NAMESPACE = "SIM.INFRA-MONITOR";
 
     public ApolloSpringApplicationRunListener(SpringApplication application, String[] args) {
 
@@ -70,6 +70,7 @@ public class ApolloSpringApplicationRunListener implements SpringApplicationRunL
                     "Config center must config app.id in " + DefaultApplicationProvider.APP_PROPERTIES_CLASSPATH);
             }
         } else {
+            //todo tomcat多个war会冲突？
             System.setProperty(APOLLO_APP_ID_KEY, apolloAppId);
         }
     }
