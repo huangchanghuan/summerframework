@@ -132,6 +132,7 @@ public class GrayServerFilter implements ServerFilter {
                         }
                     }
                 }
+                //nodeInfo中的key的值都为空，或者， key存在时候，值都匹配。 则是灰度匹配目标
                 logger.debug("Matched server [{}]",
                     ((DiscoveryEnabledServer)server).getInstanceInfo().getHealthCheckUrl());
                 return true;
