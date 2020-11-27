@@ -75,6 +75,20 @@ public class GrayServerFilter implements ServerFilter {
         return context;
     }
 
+    /**
+     * 灰度时候，比如
+     * 请求header有特定grayversion=v1.0.0，则matchList中的map是match=true，grayversion=v1.0.0，match（）匹配出来的是grayList
+     * 请求header没有特定grayversion=v1.0.0，则matchList中的map是match=false，grayversion=v1.0.0 ， match（）匹配出来的是nograyList
+     * 这样子，特定的请求才进入灰度服务中。
+     * 因为是groovy脚本，请求可以多维度参数，比如用请求中的userid，只要userid的hashcode取模落在【0-x-100】中，
+     * 在0-x中的则matchList中的map是match=true，grayversion=v1.0.0，match（）匹配出来的是grayList
+     * 在x-100中的则matchList中的map是match=false，grayversion=v1.0.0 ， match（）匹配出来的是nograyList
+     * groovy还能实现更多灵活功能，比如多灰度版本
+     * 所以总体来说，groovy规则很重要，GrayRulesStore，可以在消费者启动完成前，就要去管理平台获取最新的groovy规则；同时，管理平台修改规则时候，
+     * 要负责通知每个服务获取最新groovy规则。
+     * @param servers
+     * @return
+     */
     @Override
     public List<Server> match(List<Server> servers) {
         if (servers == null || servers.size() == 0) {
@@ -135,6 +149,7 @@ public class GrayServerFilter implements ServerFilter {
                         }
                     }
                 }
+                //nodeInfo中的key的值都为空，或者， key存在时候，值都匹配。 则是灰度匹配目标
                 logger.debug("Matched server [{}]",
                     ((DiscoveryEnabledServer)server).getInstanceInfo().getHealthCheckUrl());
                 return true;
