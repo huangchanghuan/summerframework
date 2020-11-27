@@ -101,8 +101,11 @@ public class GrayServerFilter implements ServerFilter {
     }
 
     /**
-     * 根据match参数，返回graylist或者nograylist
-     * 所以消费要配置script决定是匹配gray还是nogray；
+     * matchMap保存key-value： match：true/false ， bkjkgray:v1.0.0灰度版本号 等灰度维度值
+     * 比如：
+     * 如果不存在bkjkgray，则返回所有服务列表
+     * 否则根据bkjkgray:v1.0.0，选择出灰度目标列表 和 非目标列表
+     * 再根据match决定，是返回目标列表 还是 非目标列表
      * @param servers
      * @param matchMap
      * @return
