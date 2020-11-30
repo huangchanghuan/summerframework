@@ -1,4 +1,4 @@
-package com.xxl.job.executor;
+package com.sunstar.provider;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;

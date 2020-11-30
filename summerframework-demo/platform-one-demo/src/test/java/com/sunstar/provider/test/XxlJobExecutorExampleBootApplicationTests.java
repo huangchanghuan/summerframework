@@ -1,4 +1,4 @@
-package com.xxl.job.executor.test;
+package com.sunstar.provider.test;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

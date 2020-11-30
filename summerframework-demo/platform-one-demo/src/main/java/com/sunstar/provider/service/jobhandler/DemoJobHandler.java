@@ -1,4 +1,4 @@
-package com.xxl.job.executor.service.jobhandler;
+package com.sunstar.provider.service.jobhandler;
 
 import org.springframework.stereotype.Component;
 
